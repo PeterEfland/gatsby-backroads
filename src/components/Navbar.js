@@ -1,13 +1,13 @@
-import React, {useState} from "react"
-import styles from '../css/navbar.module.css'
-import {Link} from 'gatsby'
-import {FaAlignRight} from 'react-icons/fa'
-import links from '../constants/links'
-import socialIcons from '../constants/social-icons'
-import logo from '../images/logo.svg'
+import React, { useState } from "react"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
+import styles from "../css/navbar.module.css"
+import { FaAlignRight } from "react-icons/fa"
+import links from "../constants/links"
+import socialIcons from "../constants/social-icons"
+import logo from "../images/logo.svg"
 
 const Navbar = () => {
-  const [isOpen, setNav] = (useState(false))
+  const [isOpen, setNav] = useState(false)
   const toggleNav = () => {
     setNav(isOpen => !isOpen)
   }
@@ -16,23 +16,40 @@ const Navbar = () => {
     <nav className={styles.navbar}>
       <div className={styles.navCenter}>
         <div className={styles.navHeader}>
-          <img src={logo} alt="Backroads logo"/>
+          <img src={logo} alt="Backroads logo" />
           <button type="button" className={styles.logoBtn} onClick={toggleNav}>
-            <FaAlignRight className={styles.logoIcon}/>
+            <FaAlignRight className={styles.logoIcon} />
           </button>
         </div>
-        <ul className={isOpen ? `${styles.navLinks} ${styles.showNav}` : `${styles.navLinks}`}>
+        <ul
+          className={
+            isOpen
+              ? `${styles.navLinks} ${styles.showNav}`
+              : `${styles.navLinks}`
+          }
+        >
           {links.map((item, index) => {
-            return(
+            return (
               <li key={index}>
-                <Link to={item.path}>{item.text}</Link>
+                <AniLink fade to={item.path}>
+                  {item.text}
+                </AniLink>
               </li>
-              )
+            )
           })}
         </ul>
         <div className={styles.navSocialLinks}>
           {socialIcons.map((item, index) => {
-            return <a key={index} href={item.url} target="_blank" rel="noopener noreferrer">{item.icon}</a>
+            return (
+              <a
+                key={index}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {item.icon}
+              </a>
+            )
           })}
         </div>
       </div>
